@@ -10,9 +10,9 @@ use App\Http\Controllers\Controller;
 class TaskController extends Controller
 {
     /*
-     * Création d'une nouvelle instance du controller
-     * Ajouter un middleware sur auth permet à nos tâches
-     * d'être vues uniquement par des users authentifiés
+     * Crï¿½ation d'une nouvelle instance du controller
+     * Ajouter un middleware sur auth permet ï¿½ nos tï¿½ches
+     * d'ï¿½tre vues uniquement par des users authentifiï¿½s
      */
     public function __construct()
     {
@@ -33,6 +33,14 @@ class TaskController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        // Create The Task...
+        /*
+         * Permet la crÃ©ation d'une tÃ¢che par un utilisateur
+         */
+        $request->user()->tasks()->create([
+            'name' => $request->name,
+        ]);
+
+//        Une fois la tÃ¢che crÃ©e, retour au /tasks
+        return redirect('/tasks');
     }
 }
