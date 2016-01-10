@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Routes d'authentification
+Route::auth();
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
