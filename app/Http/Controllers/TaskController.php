@@ -9,5 +9,13 @@ use App\Http\Controllers\Controller;
 
 class TaskController extends Controller
 {
-    //
+    /*
+     * Création d'une nouvelle instance du controller
+     * Ajouter un middleware sur auth permet à nos tâches
+     * d'être vues uniquement par des users authentifiés
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }
