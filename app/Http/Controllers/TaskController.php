@@ -23,4 +23,16 @@ class TaskController extends Controller
     {
         return view('tasks.index');
     }
+
+    public function store(Request $request)
+    {
+        /*
+         * Valider le formulaire avec un nom>255 characters
+         */
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ]);
+
+        // Create The Task...
+    }
 }
