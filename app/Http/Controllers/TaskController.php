@@ -14,6 +14,8 @@ class TaskController extends Controller
      * Cr�ation d'une nouvelle instance du controller
      * Ajouter un middleware sur auth permet � nos t�ches
      * d'�tre vues uniquement par des users authentifi�s
+     * → Restreindre l'accès aux routes relatives à Task
+     * pour nos users authentifiés seulement
      */
     public function __construct()
     {

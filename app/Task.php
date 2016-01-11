@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    /*
+     * On ajoute "name" dans les attributs assignables
+     */
     protected $fillable = ['name'];
 
     /*
