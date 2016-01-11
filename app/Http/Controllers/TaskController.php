@@ -48,4 +48,8 @@ class TaskController extends Controller
 //        Une fois la tâche crée, retour au /tasks
         return redirect('/tasks');
     }
+    public function destroy(Request $request, Task $task)
+    {
+        //
+    }
 }

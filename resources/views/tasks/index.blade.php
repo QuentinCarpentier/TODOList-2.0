@@ -59,6 +59,12 @@
 
                         <td>
                             <!-- TODO: Delete Button -->
+                            <form action="/task/{{ $task->id }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+
+                                <button>Delete Task</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
