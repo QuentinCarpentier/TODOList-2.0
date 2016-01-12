@@ -28,6 +28,10 @@ class TaskController extends Controller
         $this->tasks = $tasks;
     }
 
+    public function about()
+    {
+        return view('about.apropos');
+    }
     /*
      * Affiche une liste de toutes les taches de l'user
      */

@@ -15,6 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('tasks/index', 'TaskController@index');
+
+Route::get('about/apropos',[
+    'as' => 'about',
+    'uses' => 'TaskController@about'
+]);
+
 // Routes d'authentification
 Route::auth();
 

@@ -25,6 +25,36 @@
         .table-text div {
             padding-top: 6px;
         }
+        .navbar-default {
+            background-color: #e1f2ff;
+            border-color: #bddbf7;
+        }
+        .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+            color: #002276;
+        }
+        .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+            color: #002276;
+        }
+        .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+            color: #002276;
+            background-color: #bddbf7;
+        }
+        .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+            color: #002276;
+            background-color: #bddbf7;
+        }
+        .navbar-default .navbar-toggle {
+            border-color: #bddbf7;
+        }
+        .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+            background-color: #bddbf7;
+        }
+
+        td a {
+            display: block;
+            border: 1px solid black;
+            padding: 16px;
+        }
     </style>
 
     <script>
@@ -46,7 +76,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand" href="/">TODOList - TIN</a>
+                <a class="navbar-brand" href="/tasks/index">TODOList - TIN</a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
@@ -55,8 +85,9 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about/apropos"><i class="fa fa-btn fa-heart"></i>A propos</a></li>
                     @if (Auth::guest())
-                        <li><a href="/auth/register"><i class="fa fa-btn fa-heart"></i>S'enregistrer</a></li>
+                        <li><a href="/auth/register"><i class="fa fa-btn fa-user-plus"></i>S'enregistrer</a></li>
                         <li><a href="/auth/login"><i class="fa fa-btn fa-sign-in"></i>Se connecter</a></li>
                     @else
                         <li class="navbar-text"><i class="fa fa-btn fa-user"></i>{{ Auth::user()->name }}</li>
@@ -69,5 +100,6 @@
 </div>
 
 @yield('content')
+
 </body>
 </html>
