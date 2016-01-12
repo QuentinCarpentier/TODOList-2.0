@@ -1,73 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>Laravel Quickstart - Intermediate</title>
+@section('content')
+    <div class="container">
+        <div class="col-sm-offset-2 col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Nouvelle tâche
+                </div>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+                <div class="panel-body">
+                    <!-- Afficher les erreurs de validation -->
+                    @include('common.errors')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+                    <!-- Nouveau formulaire de tache -->
+                    <form action="/task" method="POST" class="form-horizontal">
+                        {{ csrf_field() }}
 
-    <style>
-        body {
-            font-family: 'Raleway';
-            margin-top: 25px;
-        }
-        .fa-btn {
-            margin-right: 6px;
-        }
-        .table-text div {
-            padding-top: 6px;
-        }
-    </style>
+                        <!-- Nom de la tache -->
+                        <div class="form-group">
+                            <label for="task-name" class="col-sm-3 control-label">Tâche</label>
 
-    <script>
-        (function () {
-            $('#task-name').focus();
-        }());
-    </script>
-</head>
+                            <div class="col-sm-6">
+                                <input type="text" name="name" id="task-name" class="form-control" value="{{ old('task') }}">
+                            </div>
+                        </div>
 
-<body>
-<div class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <a class="navbar-brand" href="/">Task List</a>
+                        <!-- Ajouter une tache -->
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-6">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fa fa-btn fa-plus"></i>Ajouter une nouvelle tâche
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    &nbsp;
-                </ul>
+            <!-- Taches courantes -->
+            @if (count($tasks) > 0)
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Tâches courantes
+                    </div>
 
-                <ul class="nav navbar-nav navbar-right">
-                    @if (Auth::guest())
-                        <li><a href="/auth/register"><i class="fa fa-btn fa-heart"></i>Register</a></li>
-                        <li><a href="/auth/login"><i class="fa fa-btn fa-sign-in"></i>Login</a></li>
-                    @else
-                        <li class="navbar-text"><i class="fa fa-btn fa-user"></i>{{ Auth::user()->name }}</li>
-                        <li><a href="/auth/logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                    @endif
-                </ul>
-            </div>
+                    <div class="panel-body">
+                        <table class="table table-striped task-table">
+                            <thead>
+                            <th>Tâche</th>
+                            <th>&nbsp;</th>
+                            </thead>
+                            <tbody>
+                            @foreach ($tasks as $task)
+                                <tr>
+                                    <td class="table-text"><div>{{ $task->name }}</div></td>
+
+                                    <!-- Bouton supprimer de la tache -->
+                                    <td>
+                                        <form action="/task/{{ $task->id }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <!-- Method Spoofing: permet de générer une requete DELETE que Laravel reconnait (Route::delete) -->
+                                            {{ method_field('DELETE') }}
+
+                                            <button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger">
+                                                <i class="fa fa-btn fa-trash"></i>Supprimer
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
         </div>
-    </nav>
-</div>
-
-@yield('content')
-</body>
-</html>
+    </div>
+@endsection

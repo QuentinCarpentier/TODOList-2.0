@@ -2,18 +2,20 @@
 
 namespace App\Providers;
 
+use App\Task;
+use App\Policies\TaskPolicy;
+
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
+    /*
+   Permet de maper les polices avec l'application
+   Quelle police utiliser lorsque l'on essaye d'authoriser une action d'une instance du modèle Task
+   */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Task::class => TaskPolicy::class,
     ];
 
     /**

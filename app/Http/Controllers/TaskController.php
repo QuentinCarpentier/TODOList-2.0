@@ -2,27 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use app\Task;
+use App\Task;
 use App\Http\Requests;
-use app\Repositories\TaskRepository;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
+
+
+//    Instance du Task Repository
+    protected $tasks;
+
     /*
-     * Cr�ation d'une nouvelle instance du controller
-     * Ajouter un middleware sur auth permet � nos t�ches
-     * d'�tre vues uniquement par des users authentifi�s
+     * Creation d'une nouvelle instance du controller
+     * Ajouter un middleware sur auth permet a nos taches
+     * d'etre vues uniquement par des users authentifies
      * → Restreindre l'accès aux routes relatives à Task
      * pour nos users authentifiés seulement
      */
-    public function __construct()
+    public function __construct(TaskRepository $tasks)
     {
         $this->middleware('auth');
+        $this->tasks = $tasks;
     }
 
-    protected $tasks;
+    /*
+     * Affiche une liste de toutes les taches de l'user
+     */
     public function index(Request $request)
     {
 
@@ -31,27 +39,43 @@ class TaskController extends Controller
         ]);
     }
 
+    /*
+     * Store fonction : Valider le formulaire et créer une Task
+     */
     public function store(Request $request)
     {
-        /*
-         * Valider le formulaire avec un nom>255 characters
-         */
+
+//        Valider le formulaire avec un nom>255 characters
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
 
-        /*
-         * Permet la création d'une tâche par un utilisateur
-         */
+
+//        Permet la création d'une tâche par un utilisateur
         $request->user()->tasks()->create([
             'name' => $request->name,
         ]);
 
-//        Une fois la tâche crée, retour au /tasks
+
+//        Une fois la tâche créée, retour au /tasks
         return redirect('/tasks');
     }
+
+    /*
+     * Détruire une tache
+     */
     public function destroy(Request $request, Task $task)
     {
-        //
+        /*
+        'detroy' → nom de la méthode Policy que nous voulons appeler
+        $task → l'instance du modèle
+        Le Task Model correspond à la TaskPolicy, donc Laravel sait sur quelle policy tirer la méthode destroy
+        */
+        $this->authorize('destroy', $task);
+        /*
+        Supprimer la tache et renvoyer /tasks
+        */
+        $task->delete();
+        return redirect('/tasks');
     }
 }

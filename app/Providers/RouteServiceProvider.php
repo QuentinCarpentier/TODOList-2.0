@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Task;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -24,9 +25,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //rajout
-        $router->model('task', 'App\Task');
-        //
+        /*
+         * Récupérer le model Task qui correspond à un ID donné dès qu'il voit {task}
+         * Permet d'injecter l'instance Tast à la méthode destroy du controller
+         */
+        $router->model('task', Task::class);
 
         parent::boot($router);
     }
