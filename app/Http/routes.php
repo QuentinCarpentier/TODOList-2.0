@@ -28,11 +28,15 @@ Route::auth();
 // Routes relative au TaskController
 Route::get('/tasks', 'TaskController@index');
 Route::post('/task', 'TaskController@store');
+
+Route::get('/links', 'LinkController@index');
+Route::post('/link', 'LinkController@store');
 /*
  * La variable {task} de la route égale la variable $task définie dans le Controller
  * L'appelle de cette route se fait via la view avec la méthode DELETE
  */
 Route::delete('/task/{task}', 'TaskController@destroy');
+Route::delete('/link/{link}', 'TaskController@destroy');
 
 // Authentication Routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

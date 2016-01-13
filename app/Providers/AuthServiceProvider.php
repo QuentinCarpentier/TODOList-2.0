@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Task;
+use App\Link;
 use App\Policies\TaskPolicy;
+use App\Policies\LinkPolicy;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -16,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
    */
     protected $policies = [
         Task::class => TaskPolicy::class,
+        Link::class => LinkPolicy::class,
     ];
 
     /**

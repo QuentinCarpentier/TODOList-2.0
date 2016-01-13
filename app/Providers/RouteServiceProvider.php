@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Task;
+use App\Link;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -30,6 +31,7 @@ class RouteServiceProvider extends ServiceProvider
          * Permet d'injecter l'instance Tast à la méthode destroy du controller
          */
         $router->model('task', Task::class);
+        $router->model('link', Link::class);
 
         parent::boot($router);
     }
