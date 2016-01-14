@@ -75,7 +75,7 @@
 
                                     <!-- Bouton supprimer de la tache -->
                                     <td>
-                                        <form action="link/{{ $link->id }}" method="POST">
+                                        <form action="{{ route('verslink',['id'=>$link->id]) }}" method="POST">
                                             {{ csrf_field() }}
                                                     <!-- Method Spoofing: permet de générer une requete DELETE que Laravel reconnait (Route::delete) -->
                                             {{ method_field('DELETE') }}

@@ -31,7 +31,10 @@ Route::get('link/{id}',[
     'uses' => 'TaskController@index'
 ]);
 
-
+Route::get('/links/{id}',[
+    'as' => 'verslink',
+    'uses' => 'LinkController@index'
+]);
 
 //Route::get('link/{tasks}', 'TaskController@index');
 //Route::post('link/{task}', [
@@ -40,16 +43,16 @@ Route::get('link/{id}',[
 //]);
 
 Route::get('/links/{task}', 'TaskController@index');
-Route::post('/link/{task}', 'TaskController@store');
+Route::post('/link/link/tasks', 'TaskController@store');
 
 Route::get('/links', 'LinkController@index');
 Route::post('/link', 'LinkController@store');
 /*
- * La variable {task} de la route égale la variable $task définie dans le Controller
- * L'appelle de cette route se fait via la view avec la méthode DELETE
+ * La variable {task} de la route ï¿½gale la variable $task dï¿½finie dans le Controller
+ * L'appelle de cette route se fait via la view avec la mï¿½thode DELETE
  */
 Route::delete('link/{task}', 'TaskController@destroy');
-Route::delete('link/{link}', 'LinkController@destroy');
+Route::delete('links/{link}', 'LinkController@destroy');
 
 // Authentication Routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
