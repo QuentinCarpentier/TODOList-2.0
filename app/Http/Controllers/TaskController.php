@@ -35,12 +35,12 @@ class TaskController extends Controller
     /*
      * Affiche une liste de toutes les taches de l'user
      */
-    public function index(Request $request)
+    public function index(Request $request, TaskRepository $tasks)
     {
-
         return view('tasks.index', [
             'tasks' => $this->tasks->forUser($request->user()),
         ]);
+        //->with('tasks', $tasks);
     }
 
     /*
@@ -62,7 +62,7 @@ class TaskController extends Controller
 
 
 //        Une fois la tâche créée, retour au /tasks
-        return redirect('/tasks');
+        return redirect('link/{task}');
     }
 
     /*
@@ -80,6 +80,6 @@ class TaskController extends Controller
         Supprimer la tache et renvoyer /tasks
         */
         $task->delete();
-        return redirect('/tasks');
+        return redirect('link/{task}');
     }
 }

@@ -13,7 +13,7 @@
                     @include('common.errors')
 
                     <!-- Nouveau formulaire de tache -->
-                    <form action="/task" method="POST" class="form-horizontal">
+                    <form action="link/task" method="POST" class="form-horizontal">
                         {{ csrf_field() }}
 
                         <!-- Nom de la tache -->
@@ -21,7 +21,7 @@
                             <label for="task-name" class="col-sm-3 control-label">Tâche</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="name" id="task-name" class="form-control" value="{{ old('task') }}">
+                                <input type="text" name="name" id="task-name" class="form-control">
                             </div>
                         </div>
 
@@ -38,7 +38,6 @@
             </div>
 
             <!-- Taches courantes -->
-            @if (count($tasks) > 0)
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         Tâches courantes
@@ -47,6 +46,7 @@
                     <div class="panel-body">
                         <table class="table table-striped task-table">
                             <thead>
+                            @if (count($tasks) > 0)
                             <th>Tâche</th>
                             <th>&nbsp;</th>
                             </thead>
@@ -57,7 +57,7 @@
 
                                     <!-- Bouton supprimer de la tache -->
                                     <td>
-                                        <form action="/task/{{ $task->id }}" method="POST">
+                                        <form action="{{ route('verstache',['id'=>$task->id]) }}" method="POST">
                                             {{ csrf_field() }}
                                             <!-- Method Spoofing: permet de générer une requete DELETE que Laravel reconnait (Route::delete) -->
                                             {{ method_field('DELETE') }}
@@ -69,11 +69,13 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @else
+                                Vous n'avez pas encore de tâches !
+                            @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
-            @endif
         </div>
     </div>
 @endsection

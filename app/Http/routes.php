@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('tasks/index', 'TaskController@index');
+//Route::get('links/index', 'LinkController@index');
 
 Route::get('about/apropos',[
     'as' => 'about',
@@ -26,8 +26,21 @@ Route::get('about/apropos',[
 Route::auth();
 
 // Routes relative au TaskController
-Route::get('/tasks', 'TaskController@index');
-Route::post('/task', 'TaskController@store');
+Route::get('link/{id}',[
+    'as' => 'verstache',
+    'uses' => 'TaskController@index'
+]);
+
+
+
+//Route::get('link/{tasks}', 'TaskController@index');
+//Route::post('link/{task}', [
+//    'as' => 'addtask',
+//    'uses' => 'TaskController@store',
+//]);
+
+Route::get('/links/{task}', 'TaskController@index');
+Route::post('/link/{task}', 'TaskController@store');
 
 Route::get('/links', 'LinkController@index');
 Route::post('/link', 'LinkController@store');
@@ -35,8 +48,8 @@ Route::post('/link', 'LinkController@store');
  * La variable {task} de la route égale la variable $task définie dans le Controller
  * L'appelle de cette route se fait via la view avec la méthode DELETE
  */
-Route::delete('/task/{task}', 'TaskController@destroy');
-Route::delete('/link/{link}', 'TaskController@destroy');
+Route::delete('link/{task}', 'TaskController@destroy');
+Route::delete('link/{link}', 'LinkController@destroy');
 
 // Authentication Routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

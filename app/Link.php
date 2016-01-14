@@ -14,8 +14,8 @@ class Link extends Model
     /*
      * Relation : chaque tâche appartient à un user
      */
-    public function user()
+    public function tasks()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Task');
     }
 }

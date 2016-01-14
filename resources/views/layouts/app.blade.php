@@ -49,12 +49,6 @@
         .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
             background-color: #bddbf7;
         }
-
-        td a {
-            display: block;
-            border: 1px solid black;
-            padding: 16px;
-        }
     </style>
 
     <script>
@@ -76,7 +70,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand" href="/tasks/index">TODOList - TIN</a>
+                <a class="navbar-brand" href="/links">TODOList - TIN</a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Task;
+Use App\Link;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -37,6 +39,6 @@ class User extends Authenticatable
      */
     public function links()
     {
-        return $this->hasMany(Link::class);
+        return $this->hasMany('App\Link');
     }
 }

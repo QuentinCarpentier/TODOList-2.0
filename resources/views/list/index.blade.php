@@ -13,15 +13,23 @@
                     @include('common.errors')
 
                             <!-- Nouveau formulaire de tache -->
-                    <form action="/task" method="POST" class="form-horizontal">
+                    <form action="link" method="POST" class="form-horizontal">
                         {{ csrf_field() }}
 
                                 <!-- Nom de la tache -->
                         <div class="form-group">
-                            <label for="task-name" class="col-sm-3 control-label">Liste</label>
+                            <label for="link-name" class="col-sm-3 control-label">Liste</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="name" id="task-name" class="form-control" value="{{ old('task') }}">
+                                <input type="text" name="name" id="link-name" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="link-body" class="col-sm-3 control-label">Description</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="body" id="link-body" class="form-control">
                             </div>
                         </div>
 
@@ -38,42 +46,55 @@
             </div>
 
             <!-- Taches courantes -->
-            @if (count($links) > 0)
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        Liste courantes
+                        Listes courantes
                     </div>
 
                     <div class="panel-body">
                         <table class="table table-striped task-table">
                             <thead>
+                            @if (count($links) > 0)
                             <th>Liste</th>
                             <th>&nbsp;</th>
                             </thead>
                             <tbody>
                             @foreach ($links as $link)
                                 <tr>
-                                    <td class="table-text"><a href="{{ route('tasks/index',['id'=>$link->id]) }}"><div>{{ $link->name }}</div></a></td>
+                                    <td class="table-text">
+                                        <a href="{{ route('verstache',['id'=>$link->id]) }}">
+                                            <div>{{ $link->name }}</div>
+                                        </a>
+                                        <div>{{ $link->body }}</div>
+                                        <br>
+                                        <?php
+                                        $date = date('Y/m/d h:i:s a', time());
+                                        ?>
+                                        <div>Créé le {{ date('d-m-Y', strtotime($link->created_at)) }} par {{ Auth::user()->name }}</div>
+                                    </td>
 
                                     <!-- Bouton supprimer de la tache -->
                                     <td>
-                                        <form action="/link/{{ $link->id }}" method="POST">
+                                        <form action="link/{{ $link->id }}" method="POST">
                                             {{ csrf_field() }}
-                                                    <!-- Method Spoofing: permet de g�n�rer une requete DELETE que Laravel reconnait (Route::delete) -->
+                                                    <!-- Method Spoofing: permet de générer une requete DELETE que Laravel reconnait (Route::delete) -->
                                             {{ method_field('DELETE') }}
 
-                                            <button type="submit" id="delete-task-{{ $link->id }}" class="btn btn-danger pull-right">
+                                            <button type="submit" id="delete-link-{{ $link->id }}" class="btn btn-danger pull-right">
                                                 <i class="fa fa-btn fa-trash"></i>Supprimer
                                             </button>
                                         </form>
                                     </td>
                                 </tr>
                             @endforeach
+                            @else
+                                Vous n'avez pas encore de liste !
+                            @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
-            @endif
+
         </div>
     </div>
 @endsection

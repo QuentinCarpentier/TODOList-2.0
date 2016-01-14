@@ -32,12 +32,14 @@ class LinkController extends Controller
 //        Valider le formulaire avec un nom>255 characters
         $this->validate($request, [
             'name' => 'required|max:255',
+            'body' => 'required|max:255',
         ]);
 
 
 //        Permet la création d'une liste par un utilisateur
         $request->user()->links()->create([
             'name' => $request->name,
+            'body' => $request->body,
         ]);
 
         return redirect('/links');
