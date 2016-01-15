@@ -44,6 +44,7 @@ Route::get('/links/{id}',[
 
 Route::get('/links/{task}', 'TaskController@index');
 Route::post('/link/link/tasks', 'TaskController@store');
+//Route::post('/link/link/{id}/tasks', 'TaskController@store');
 
 Route::get('/links', 'LinkController@index');
 Route::post('/link', 'LinkController@store');

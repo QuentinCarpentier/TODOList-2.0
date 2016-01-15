@@ -53,18 +53,33 @@
                             <tbody>
                             @foreach ($tasks as $task)
                                 <tr>
-                                    <td class="table-text"><div>{{ $task->name }}</div></td>
+                                    <td class="table-text">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" name="txtCheck" value=""
+                                                <?php if(isset($_POST['txtCheck'])) echo "checked='checked'"; ?>>{{ $task->name }}</label>
+                                        </div>
+
+                                    </td>
 
                                     <!-- Bouton supprimer de la tache -->
                                     <td>
+
                                         <form action="{{ route('verstache',['id'=>$task->id]) }}" method="POST">
                                             {{ csrf_field() }}
                                             <!-- Method Spoofing: permet de générer une requete DELETE que Laravel reconnait (Route::delete) -->
                                             {{ method_field('DELETE') }}
-
                                             <button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger pull-right">
                                                 <i class="fa fa-btn fa-trash"></i>Supprimer
                                             </button>
+
+                                        </form>
+                                        <form>
+                                            {{ csrf_field() }}
+                                                    <!-- Method Spoofing: permet de générer une requete DELETE que Laravel reconnait (Route::delete) -->
+                                            <button type="submit" id="modif-task-{{ $task->id }}" class="btn btn-success pull-right">
+                                                <i class="fa fa-btn  fa-check"></i>Valider
+                                            </button>
+
                                         </form>
                                     </td>
                                 </tr>

@@ -10,7 +10,9 @@ class Task extends Model
     /*
      * On ajoute "name" dans les attributs assignables
      */
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'id','name'
+    ];
 
     /*
      * Relation : chaque tâche appartient à un user
